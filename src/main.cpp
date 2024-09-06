@@ -16,7 +16,7 @@ void set_wheel_angle(bool left_motor, pros::Motor &top_motor, pros::Motor &botto
     int current_angle = getNormalizedSensorAngle(rotation_sensor.get_position());
     int error = target_angle - current_angle;
 
-    if (error > 180) error -= 360;
+	if (error > 180) error -= 360;
     if (error < -180) error += 360;
 
 	if(left_motor == true){
@@ -102,6 +102,11 @@ void update_wheel_power(){
 
 		double left_target_angle = translation_angle + (rotation != 0 ? 45 : 0);
 		double right_target_angle = translation_angle - (rotation != 0 ? 45 : 0);
+
+		if (left_target_angle >= 360) left_target_angle -= 360;
+        if (right_target_angle >= 360) right_target_angle -= 360;
+        if (left_target_angle < 0) left_target_angle += 360;
+        if (right_target_angle < 0) right_target_angle += 360;
 
 		double left_angle_diff = fmod(fabs(left_target_angle - left_current_angle), 360.0);
 		double right_angle_diff = fmod(fabs(right_target_angle - right_current_angle), 360.0);
