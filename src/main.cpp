@@ -97,8 +97,8 @@ void update_wheel_power(){
 
 		if (translation_angle < 0) translation_angle += 360;
 
-		double left_current_angle = left_rotation_sensor.get_position();
-		double right_current_angle = right_rotation_sensor.get_position();
+		double left_current_angle = getNormalizedSensorAngle(left_rotation_sensor.get_position());
+		double right_current_angle = getNormalizedSensorAngle(right_rotation_sensor.get_position());
 
 		double left_target_angle = translation_angle + (rotation != 0 ? 45 : 0);
 		double right_target_angle = translation_angle - (rotation != 0 ? 45 : 0);
@@ -150,7 +150,7 @@ void update_wheel_power(){
 		ru.move(right_power);
 		rl.move(right_power);
 
-		pros::delay(10);
+		pros::delay(5);
 	}
 }
 
